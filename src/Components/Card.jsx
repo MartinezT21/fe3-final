@@ -1,22 +1,32 @@
-import React from "react";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useCharStates } from '../Context/Context'
+import '../App.css'
 
+const Card = ({item}) => {
 
-const Card = ({ name, username, id }) => {
+  const {favs, dispatch} = useCharStates()
 
-  const addFav = ()=>{
-    // Aqui iria la logica para agregar la Card en el localStorage
+  const findFav = favs.find((fav) => fav.id == item.id)
+
+  const addFav = () => {
+    if(findFav){
+      alert('Ese personaje ya está agregado a favoritos')
+    } else {
+      dispatch({type: 'ADD_FAV', payload: item})
+    }
   }
 
   return (
-    <div className="card">
-        {/* En cada card deberan mostrar en name - username y el id */}
-
-        {/* No debes olvidar que la Card a su vez servira como Link hacia la pagina de detalle */}
-
-        {/* Ademas deberan integrar la logica para guardar cada Card en el localStorage */}
-        <button onClick={addFav} className="favButton">Add fav</button>
+    <div className="Boxes" >
+      <Link to={'/detail/' + item.id}>
+      <img src="/images/doctor.jpg" className='Docimg' alt="" />
+        <h4>{item.name}</h4>
+        <p>{item.username}</p>
+      </Link>
+      <button onClick={addFav}>{findFav ? '💖' : '❤'}</button>
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

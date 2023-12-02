@@ -1,19 +1,52 @@
-import React from 'react'
-
-
-//Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import '../Components/components.css'
 
 const Detail = () => {
- 
-  // Consumiendo el parametro dinamico de la URL deberan hacer un fetch a un user en especifico
+  const [character, setCharacter] = useState({});
+  const { id } = useParams();
+  console.log(id);
+
+  const url = `https://jsonplaceholder.typicode.com/users/${id}`;
+
+  useEffect(() => {
+    const fetchCharacter = async () => {
+      try {
+        const res = await axios(url);
+        setCharacter(res.data);
+      } catch (error) {
+        console.error('Error fetching character:', error);
+      }
+    };
+
+    fetchCharacter();
+  }, [url]); 
 
   return (
-    <>
-      <h1>Detail Dentist id </h1>
-      {/* aqui deberan renderizar la informacion en detalle de un user en especifico */}
-      {/* Deberan mostrar el name - email - phone - website por cada user en especifico */}
-    </>
-  )
-}
+    <div className='container'>
+      <h2>Dentist {character.id} details </h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Sitio Web</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{character.name}</td>
+            <td>{character.email}</td>
+            <td>{character.phone}</td>
+            <td>{character.website}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+  
+};
 
-export default Detail
+export default Detail;

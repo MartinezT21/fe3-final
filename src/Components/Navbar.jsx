@@ -1,16 +1,22 @@
 import React from 'react'
-
-//Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
+import { Link } from 'react-router-dom'
+import '../Components/components.css'
 
 const Navbar = () => {
-
   return (
     <nav>
-      {/* Aqui deberan agregar los liks correspondientes a las rutas definidas */}
-      {/* Deberan implementar ademas la logica para cambiar de Theme con el button */}
-      <button>Change theme</button>
+      <div className="left-section">
+        <h2>DH Odonto</h2>
+      </div>
+      <div className="right-section">
+        <div className="nav-links">
+          <Link to="/">Home</Link>
+          <Link to="/favs">Favs</Link>
+          <Link to="/contact">Contact</Link>
+        </div>
+      </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
