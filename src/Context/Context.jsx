@@ -7,7 +7,6 @@ const CharStates = createContext()
 const initialState = {
     list: [],
     favs: JSON.parse(localStorage.getItem('favs')) || [],
-    // theme
 }
 
 const Context = ({children}) => {
